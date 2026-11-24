@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Animal Care House</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <span class="marca">Animal Care House</span>
+    <div id="sessao" hidden>
+      <span id="quem"></span>
+      <button type="button" id="sair" class="sec">Sair</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="tela" id="login">
+      <div class="cartao estreito">
+        <h1>Entrar</h1>
+        <p class="sub">Use seu CPF e senha para acessar o sistema.</p>
+        <form id="f-login">
+          <label>CPF <input name="cpf" required inputmode="numeric" autocomplete="username"></label>
+          <label>Senha <input type="password" name="senha" required autocomplete="current-password"></label>
+          <p class="erro" id="e-login"></p>
+          <button class="prim">Entrar</button>
+        </form>
+        <button type="button" class="link" data-ir="cadastro">Criar conta de tutor</button>
+      </div>
+    </section>
+
+    <section class="tela" id="cadastro" hidden>
+      <div class="cartao estreito">
+        <h1>Criar conta</h1>
+        <p class="sub">Cadastre-se como tutor para agendar consultas.</p>
+        <form id="f-cad">
+          <label>Nome <input name="nome" required></label>
+          <label>CPF <input name="cpf" required inputmode="numeric"></label>
+          <label>Telefone <input name="telefone" type="tel" required></label>
+          <label>E-mail <input name="email" type="email" required></label>
+          <label>Senha <input name="senha" type="password" minlength="3" required></label>
+          <p class="erro" id="e-cad"></p>
+          <button class="prim">Criar conta</button>
+        </form>
+        <button type="button" class="link" data-ir="login">Voltar ao login</button>
+      </div>
+    </section>
+
+    <section class="tela" id="menu" hidden>
+      <h1>Olá! O que você precisa hoje?</h1>
+      <div class="atalhos">
+        <button type="button" class="atalho sol" data-ir="agendar"><b>Agendar consulta</b><span>Escolha pet, veterinário e horário</span></button>
+        <button type="button" class="atalho" data-ir="pet"><b>Cadastrar pet</b><span>Adicione um novo animal</span></button>
+        <button type="button" class="atalho" data-ir="historico"><b>Histórico do pet</b><span>Veja consultas e observações</span></button>
+      </div>
+      <h2>Minhas consultas</h2>
+      <div id="proximas" class="lista"></div>
+    </section>
+
+    <section class="tela" id="pet" hidden>
+      <div class="cartao estreito">
+        <h1>Cadastrar pet</h1>
+        <form id="f-pet">
+          <label>Nome do pet <input name="nome" required></label>
+          <label>Espécie <input name="especie" list="especies" required></label>
+          <datalist id="especies"><option value="Cachorro"><option value="Gato"><option value="Ave"><option value="Coelho"></datalist>
+          <label>Raça <input name="raca"></label>
+          <label>Data de nascimento <input name="nasc" type="date"></label>
+          <button class="prim">Salvar pet</button>
+        </form>
+        <button type="button" class="link" data-ir="menu">Voltar ao menu</button>
+      </div>
+    </section>
+
+    <section class="tela" id="agendar" hidden>
+      <div class="cartao estreito">
+        <h1>Agendar consulta</h1>
+        <div id="sem-pet" hidden>
+          <p class="aviso-box">Você ainda não tem pets cadastrados. Cadastre um pet para poder agendar.</p>
+          <button type="button" class="prim" data-ir="pet">Cadastrar pet</button>
+        </div>
+        <form id="f-ag">
+          <label>Pet <select name="pet" required></select></label>
+          <label>Veterinário <select name="vet" required></select></label>
+          <label>Data <input name="data" type="date" required></label>
+          <label>Horário <select name="hora" required></select></label>
+          <p class="erro" id="e-ag"></p>
+          <button class="prim">Confirmar agendamento</button>
+        </form>
+        <button type="button" class="link" data-ir="menu">Voltar ao menu</button>
+      </div>
+    </section>
+
+    <section class="tela" id="confirmacao" hidden>
+      <div class="cartao estreito centro">
+        <div class="selo">✓</div>
+        <h1>Consulta agendada</h1>
+        <p id="resumo" class="resumo"></p>
+        <button type="button" class="prim" data-ir="menu">Voltar ao menu</button>
+      </div>
+    </section>
+
+    <section class="tela" id="historico" hidden>
+      <h1>Histórico do pet</h1>
+      <label class="inline">Pet <select id="sel-hist"></select></label>
+      <div class="tabela"><table>
+        <thead><tr><th>Data</th><th>Veterinário</th><th>Observações</th></tr></thead>
+        <tbody id="corpo-hist"></tbody>
+      </table></div>
+      <button type="button" class="link" data-ir="menu">Voltar ao menu</button>
+    </section>
+
+    <section class="tela" id="vet" hidden>
+      <h1>Minhas consultas</h1>
+      <div id="lista-vet" class="lista"></div>
+    </section>
+
+    <section class="tela" id="admin" hidden>
+      <h1>Painel do administrador</h1>
+      <div class="cartao">
+        <h2>Cadastrar veterinário</h2>
+        <form id="f-vet" class="linha">
+          <label>Nome <input name="nome" required></label>
+          <label>CPF <input name="cpf" required inputmode="numeric"></label>
+          <label>Senha <input name="senha" type="password" required></label>
+          <button class="prim">Cadastrar</button>
+        </form>
+        <p class="erro" id="e-vet"></p>
+      </div>
+      <h2>Contas de usuários</h2>
+      <div class="tabela"><table>
+        <thead><tr><th>Nome</th><th>CPF</th><th>Perfil</th><th></th></tr></thead>
+        <tbody id="corpo-users"></tbody>
+      </table></div>
+    </section>
+  </main>
+
+  <div id="aviso" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
